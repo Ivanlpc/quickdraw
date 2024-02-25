@@ -18,7 +18,7 @@ To set up the QuickDraw Predictor on your local machine, follow these steps:
 1. **Clone the Repository** 📂
 
 ```bash
-git clone https://github.com/yourusername/quickdraw.git
+git clone https://github.com/ivanlpc/quickdraw.git
 cd quickdraw
 ```
 
