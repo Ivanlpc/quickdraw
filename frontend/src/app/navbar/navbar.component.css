@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Barlow';
+    src: url('../../assets/fonts/Barlow-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.f-poppins {
+    font-family: 'Poppins', sans-serif;
+    color: var(--cream) !important;
+    font-size: 1.2rem;
+    
+}
+
+.f-quickdraw {
+    font-family: 'Barlow', sans-serif;
+    color: var(--cream) !important;
+    font-size: 2rem;
+    font-weight: 900;
+}

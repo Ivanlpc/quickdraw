@@ -1,0 +1,33 @@
+:root {
+    color-scheme: light dark;
+    --botticelli: rgb(218, 232, 241);
+    --glaciar: rgb(126, 186, 196);
+    --black-squeeze: rgb(240, 245, 249);
+    --aqua-island: rgb(174, 217, 224);
+}
+
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--botticelli);
+}
+
+.canvas-white {
+    background-color: white !important;
+}
+
+.bg-blue {
+    background-color: var(--aqua-island) !important;
+}
+
+.bg-cream {
+    background-color: var(--botticelli) !important;
+}
+
+.bg-dark-cream {
+    background-color: var(--black-squeeze);
+}
+
+.bg-dark-blue {
+    background-color: var(--glaciar) !important;
+}

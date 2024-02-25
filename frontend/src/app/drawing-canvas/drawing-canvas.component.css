@@ -1,0 +1,21 @@
+.btn-clear {
+    color: #000 !important;
+
+}
+
+.btn-clear:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+    text-shadow: 0 0 5px #000;
+}
+
+.canvas-container {
+    width: 100%;
+    max-width: 512px; 
+    margin: auto; 
+  }
+  
+canvas {
+   width: 100%;
+   height: auto;
+}

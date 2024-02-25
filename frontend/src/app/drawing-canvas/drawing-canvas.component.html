@@ -1,0 +1,19 @@
+<section class="bg-dark-cream canvas-container shadow-lg">
+  <canvas
+    id="drawingCanvas"
+    #drawingCanvas
+    class="canvas-white"
+    width="512"
+    height="512"
+    (mousedown)="startDrawing($event)"
+    (mousemove)="draw($event)"
+    (mouseup)="stopDrawing()"
+    (touchstart)="startDrawingTouch($event)"
+    (touchmove)="drawTouch($event)"
+    (touchend)="stopDrawing()"
+  ></canvas>
+  <br />
+  <button (click)="clearCanvas()" class="btn btn-clear">
+    <i class="bi bi-eraser"></i>
+  </button>
+</section>
