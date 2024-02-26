@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { DataService } from '../data.service';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-prediction',
@@ -9,7 +9,7 @@ import { DataService } from '../data.service';
   styleUrls: ['./prediction.component.css'],
 })
 export class PredictionComponent implements OnInit {
-  private predictions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  public predictions: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public chart: any;
 

@@ -31,3 +31,9 @@ body {
 .bg-dark-blue {
     background-color: var(--glaciar) !important;
 }
+
+.f-poppins {
+    font-family: 'Poppins', sans-serif;
+    color: var(--cream) !important;
+    
+}

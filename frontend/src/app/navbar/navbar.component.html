@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg bg-blue">
   <div class="container-fluid">
-    <a class="navbar-brand f-quickdraw" href="/">QUICK DRAW</a>
+    <a
+      class="navbar-brand f-quickdraw"
+      routerLink="/"
+      routerLinkActive="active-link"
+      >QUICK DRAW</a
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -14,7 +19,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ms-auto">
-        <a class="nav-link mx-3 f-poppins" aria-current="page" href="#">
+        <a
+          class="nav-link mx-3 f-poppins"
+          aria-current="page"
+          routerLink="/architecture"
+          routerLinkActive="active-link"
+        >
           Architecture
         </a>
         <a
@@ -24,7 +34,12 @@
         >
           GitHub
         </a>
-        <a class="nav-link mx-3 f-poppins" href="#">Examples</a>
+        <a
+          class="nav-link mx-3 f-poppins"
+          routerLink="/examples"
+          routerLinkActive="active-link"
+          >Examples</a
+        >
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
-import { DataService } from '../data.service';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-drawing-canvas',
@@ -11,7 +11,7 @@ import { DataService } from '../data.service';
 export class DrawingCanvasComponent implements AfterViewInit {
   @ViewChild('drawingCanvas') myCanvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
-  private model!: tf.LayersModel;
+  public model!: tf.LayersModel;
   drawing = false;
 
   constructor(private dataService: DataService) {}
