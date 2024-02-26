@@ -29,7 +29,7 @@ export class DrawingCanvasComponent implements AfterViewInit {
     }
     this.ctx = context;
     this.initializeCanvas();
-    tf.loadLayersModel('/assets/model2/model.json').then((model) => {
+    tf.loadLayersModel('/assets/model/model.json').then((model) => {
       this.model = model;
     });
   }
