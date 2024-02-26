@@ -21,13 +21,15 @@ export class DrawingCanvasComponent implements AfterViewInit {
       console.error('Canvas element is not defined');
       return;
     }
-    const context = this.myCanvas.nativeElement.getContext('2d');
+    const context = this.myCanvas.nativeElement.getContext('2d', {
+      willReadFrequently: true,
+    });
     if (!context) {
       throw new Error('Failed to get the canvas context');
     }
     this.ctx = context;
     this.initializeCanvas();
-    tf.loadLayersModel('/assets/model/model.json').then((model) => {
+    tf.loadLayersModel('/assets/model2/model.json').then((model) => {
       this.model = model;
     });
   }
@@ -36,7 +38,9 @@ export class DrawingCanvasComponent implements AfterViewInit {
       'drawingCanvas',
     )! as HTMLCanvasElement;
 
-    const ctx = canvas.getContext('2d')!;
+    const ctx = canvas.getContext('2d', {
+      willReadFrequently: true,
+    })!;
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
@@ -112,19 +116,56 @@ export class DrawingCanvasComponent implements AfterViewInit {
     this.sendPredictions([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   }
 
-  canvasToImage() {
-    const image = new Image();
-    image.src = this.myCanvas.nativeElement.toDataURL('image/png');
-    return image;
+  getImageBoundaries() {
+    const imageData = this.ctx.getImageData(
+      0,
+      0,
+      this.myCanvas.nativeElement.width,
+      this.myCanvas.nativeElement.height,
+    );
+    const data = imageData.data;
+
+    let minX = this.myCanvas.nativeElement.width;
+    let minY = this.myCanvas.nativeElement.height;
+    let maxX = 0;
+    let maxY = 0;
+
+    for (let y = 0; y < this.myCanvas.nativeElement.height; y++) {
+      for (let x = 0; x < this.myCanvas.nativeElement.width; x++) {
+        // El índice del píxel en el array (cada píxel tiene 4 valores: r, g, b, a)
+        const index = (y * this.myCanvas.nativeElement.width + x) * 4;
+        // Si el píxel no es blanco, actualiza los límites del dibujo
+        if (
+          data[index] !== 255 ||
+          data[index + 1] !== 255 ||
+          data[index + 2] !== 255
+        ) {
+          minX = Math.min(minX, x);
+          maxX = Math.max(maxX, x);
+          minY = Math.min(minY, y);
+          maxY = Math.max(maxY, y);
+        }
+      }
+    }
+    return { maxX, maxY, minX, minY };
+  }
+
+  cropImage(maxX: number, maxY: number, minX: number, minY: number) {
+    const width = maxX - minX + 1;
+    const height = maxY - minY + 1;
+    return this.ctx.getImageData(minX, minY, width, height);
   }
 
   async processImage() {
+    const { maxX, maxY, minX, minY } = this.getImageBoundaries();
+
+    const croppedImageData = this.cropImage(maxX, maxY, minX, minY);
+
     if (this.model !== null) {
-      let imgTensor = tf.browser.fromPixels(this.myCanvas.nativeElement, 1);
+      let imgTensor = tf.browser.fromPixels(croppedImageData, 1);
       imgTensor = tf.image.resizeBilinear(imgTensor, [256, 256]);
       imgTensor = imgTensor.div(255);
       imgTensor = imgTensor.expandDims(0);
-      imgTensor.print();
 
       const prediction = this.model.predict(imgTensor) as tf.Tensor;
       const predictionArray = await prediction.data();
