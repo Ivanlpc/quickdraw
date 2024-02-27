@@ -132,9 +132,7 @@ export class DrawingCanvasComponent implements AfterViewInit {
 
     for (let y = 0; y < this.myCanvas.nativeElement.height; y++) {
       for (let x = 0; x < this.myCanvas.nativeElement.width; x++) {
-        // El índice del píxel en el array (cada píxel tiene 4 valores: r, g, b, a)
         const index = (y * this.myCanvas.nativeElement.width + x) * 4;
-        // Si el píxel no es blanco, actualiza los límites del dibujo
         if (
           data[index] !== 255 ||
           data[index + 1] !== 255 ||
