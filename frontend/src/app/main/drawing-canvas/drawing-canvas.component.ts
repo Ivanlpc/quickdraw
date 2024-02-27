@@ -117,27 +117,27 @@ export class DrawingCanvasComponent implements AfterViewInit {
   }
 
   getImageBoundaries() {
-    const imageData = this.ctx.getImageData(
-      0,
-      0,
-      this.myCanvas.nativeElement.width,
-      this.myCanvas.nativeElement.height,
-    );
+    const width = this.myCanvas.nativeElement.width;
+    const height = this.myCanvas.nativeElement.height;
+    const imageData = this.ctx.getImageData(0, 0, width, height);
     const data = imageData.data;
 
-    let minX = this.myCanvas.nativeElement.width;
-    let minY = this.myCanvas.nativeElement.height;
+    let minX = width;
+    let minY = height;
     let maxX = 0;
     let maxY = 0;
 
-    for (let y = 0; y < this.myCanvas.nativeElement.height; y++) {
-      for (let x = 0; x < this.myCanvas.nativeElement.width; x++) {
-        const index = (y * this.myCanvas.nativeElement.width + x) * 4;
-        if (
-          data[index] !== 255 ||
-          data[index + 1] !== 255 ||
-          data[index + 2] !== 255
-        ) {
+    const tolerance = 10;
+    const isBlackPixel = (r: number, g: number, b: number) =>
+      r < tolerance && g < tolerance && b < tolerance;
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const index = (y * width + x) * 4; // rgba mode
+        const r = data[index];
+        const g = data[index + 1];
+        const b = data[index + 2];
+        if (isBlackPixel(r, g, b)) {
           minX = Math.min(minX, x);
           maxX = Math.max(maxX, x);
           minY = Math.min(minY, y);
@@ -145,7 +145,12 @@ export class DrawingCanvasComponent implements AfterViewInit {
         }
       }
     }
-    return { maxX, maxY, minX, minY };
+    return {
+      minX,
+      minY,
+      maxX,
+      maxY,
+    };
   }
 
   cropImage(maxX: number, maxY: number, minX: number, minY: number) {
