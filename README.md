@@ -1,5 +1,8 @@
 # QuickDraw Predictor 🎨
 
+## Demo 🖌️
+You can actually use this project here https://quickdrawcnn.netlify.app
+
 ## Overview 🌐
 
 QuickDraw Predictor is an interactive web application that leverages the power of Convolutional Neural Networks (CNN) and the extensive QuickDraw dataset by Google to predict user drawings in real-time. Built with Angular for a seamless front-end experience, this project aims to showcase the capabilities of machine learning in recognizing and classifying doodles and sketches made by users on a digital canvas.
